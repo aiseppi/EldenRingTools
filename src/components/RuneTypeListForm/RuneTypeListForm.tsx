@@ -28,7 +28,7 @@ export const RuneTypeListForm = (props: RuneTypeListInterface) => {
 
   let runes = runeTotal.map((rune) => {
     return (
-      <div>
+      <li className="rune-list-item">
         <RuneType
           id={rune.id}
           runeType={rune.runeType}
@@ -37,14 +37,18 @@ export const RuneTypeListForm = (props: RuneTypeListInterface) => {
           runeTotal={(rune.runeQty ?? 0) * rune.runeValue}
           key={rune.id}
         />
-        <RuneTypeInput
-          handleQtyChange={(event) => handleQtyChange(event, rune.id)}
-          valueEach={rune.runeValue}
-          qty={inputNumb}
-          key={`input${rune.id}`}
-        />
-        <div>TOTAL: {(rune.runeQty ?? 0) * rune.runeValue}</div>
-      </div>
+        <div className="flex-col">
+          <RuneTypeInput
+            handleQtyChange={(event) => handleQtyChange(event, rune.id)}
+            valueEach={rune.runeValue}
+            qty={inputNumb}
+            key={`input${rune.id}`}
+          />
+          <span className="colors.beige" key={`${rune.id}Total`}>
+            TOTAL: {(rune.runeQty ?? 0) * rune.runeValue}
+          </span>
+        </div>
+      </li>
     );
   });
   return (

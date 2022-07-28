@@ -5,7 +5,12 @@ export const RuneTypeInput = (props: InputPropsInterface) => {
   // console.log(props.qty)
   return (
     <div>
-      <input type="text" placeholder="Qty" onChange={props.handleQtyChange} />
+      <input
+        className="w-16 border border-black"
+        type="text"
+        placeholder="Qty"
+        onChange={props.handleQtyChange}
+      />
       {/* <span>Total: {}</span> */}
     </div>
   );

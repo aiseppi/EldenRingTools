@@ -1,11 +1,11 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
-import { RuneCalculator } from './components/RuneCalculator/RuneCalculator';
+import React from "react";
+import "./App.css";
+import "./tailwind.output.css";
+import { RuneCalculator } from "./components/RuneCalculator/RuneCalculator";
 function App() {
   return (
     <div className="App">
-     <RuneCalculator></RuneCalculator>
+      <RuneCalculator></RuneCalculator>
     </div>
   );
 }
