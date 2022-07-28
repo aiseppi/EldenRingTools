@@ -1,9 +1,21 @@
+import React from "react";
+
 export interface RuneTypeInterface {
-    runeType: string;
-    runeNumber?: number;
-    runeValue: number;
+  id: number;
+  runeType: string;
+  runeNumber?: number;
+  runeValue: number;
+  runeQty?: number;
+  runeTotal?: number;
 }
 
 export interface RuneTypeListInterface {
-    runeTypes: RuneTypeInterface[];
+  runeTypes: RuneTypeInterface[];
+}
+
+export interface InputPropsInterface {
+  ref?: React.ForwardedRef<HTMLInputElement>;
+  handleQtyChange: React.ChangeEventHandler<HTMLInputElement>;
+  qty?: number | null;
+  valueEach?: number | null;
 }
