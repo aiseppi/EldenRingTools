@@ -7,6 +7,7 @@ export interface RuneTypeInterface {
   runeValue: number;
   runeQty?: number;
   runeTotal?: number;
+  imgUrl: string;
 }
 
 export interface RuneTypeListInterface {
@@ -18,4 +19,5 @@ export interface InputPropsInterface {
   handleQtyChange: React.ChangeEventHandler<HTMLInputElement>;
   qty?: number | null;
   valueEach?: number | null;
+  value?: number;
 }

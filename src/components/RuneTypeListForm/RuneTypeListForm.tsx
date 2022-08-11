@@ -1,39 +1,51 @@
 import { randomBytes } from "crypto";
 import * as React from "react";
-import { useState, useRef, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { RuneTypeListInterface } from "../../interfaces";
 import { RuneType } from "../RuneType/RuneType";
 import { RuneTypeInput } from "../RuneTypeInput/RuneTypeInput";
-import theme from "tailwindcss/defaultTheme";
+import { TotalRuneAmount } from "../TotalRuneAmount/TotalRuneAmount";
 
 export const RuneTypeListForm = (props: RuneTypeListInterface) => {
   let inputNumb: number;
-  const [runeTotal, setRuneTotal] = useState(props.runeTypes);
-  // const [totalValue, setTotalValue] = useState<number>();
+  const [runeTotals, setRuneTotals] = useState(props.runeTypes);
+  // const [inputValue, setInputValue] = useState(props.runeTypes);
 
+  function getTotal(a: number, b: number): number {
+    return a * b;
+  }
   function handleQtyChange(
     event: React.ChangeEvent<HTMLInputElement>,
     id: number
   ) {
     let value: number = +event.target.value;
-    setRuneTotal((rune) =>
+    // setTimeout(() => {
+    //   setRuneTotals((rune) =>
+    //     rune?.map((runes, index) =>
+    //       index === id ? { ...runes, runeQty: +value } : runes
+    //     )
+    //   );
+    // }, 100);
+
+    setRuneTotals((rune) =>
       rune?.map((runes, index) =>
-        index === id ? { ...runes, runeQty: +value } : runes
+        index === id
+          ? { ...runes, runeQty: +value, runeTotal: +value * runes.runeValue }
+          : runes
       )
     );
   }
-
   useEffect(() => {
-    console.log(runeTotal[1].runeQty);
-  }, [runeTotal]);
+    console.log(runeTotals[1].runeQty);
+  }, [runeTotals]);
 
-  let runes = runeTotal.map((rune) => {
+  let runes = runeTotals.map((rune) => {
     return (
-      <li className="mb-2 flex flex-row">
-        <div
-          className="flex flex-col justify-center items-center border-red rounded-md p-2"
-          data-theme="dark"
-        >
+      <li
+        className="mb-2 mr-2 justify-space-between card-body shadow-xl bg-base-100"
+        key={Math.random()}
+      >
+        <div className="flex flex-col w-100">
           <RuneType
             id={rune.id}
             runeType={rune.runeType}
@@ -41,26 +53,34 @@ export const RuneTypeListForm = (props: RuneTypeListInterface) => {
             runeValue={rune.runeValue}
             runeTotal={(rune.runeQty ?? 0) * rune.runeValue}
             key={rune.id}
+            imgUrl={rune.imgUrl}
           />
-          <div className="flex flex-row">
-            <RuneTypeInput
-              handleQtyChange={(event) => handleQtyChange(event, rune.id)}
-              valueEach={rune.runeValue}
-              qty={inputNumb}
-              key={`input${rune.id}`}
-            />
-            <span> x {rune.runeValue}</span>
+          <RuneTypeInput
+            handleQtyChange={(event) => handleQtyChange(event, rune.id)}
+            valueEach={rune.runeValue}
+            qty={inputNumb}
+            key={`input${rune.id}`}
+            value={rune.runeQty}
+          />
+          {/* <span className="text-lg col-span-2"> x {rune.runeValue}</span> */}
+          <div
+            className="textColor-olive text-lg col-span-1"
+            key={`${rune.id}Total`}
+          >
+            <div className="badge badge-lg badge-warning">
+              + {(rune.runeQty ?? 0) * rune.runeValue}
+            </div>
           </div>
-        </div>
-        <div className="textColor-olive" key={`${rune.id}Total`}>
-          TOTAL: {(rune.runeQty ?? 0) * rune.runeValue}
         </div>
       </li>
     );
   });
   return (
-    <div>
-      <ul>{runes}</ul>
+    <div className="">
+      <ul className="grid grid-rows-4 grid-cols-3 gap-1 form-control">
+        {runes}
+      </ul>
+      <TotalRuneAmount runeTypes={runeTotals} />
     </div>
   );
 };
