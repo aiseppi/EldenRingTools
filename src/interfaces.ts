@@ -11,7 +11,8 @@ export interface RuneTypeInterface {
 }
 
 export interface RuneTypeListInterface {
-  runeTypes: RuneTypeInterface[];
+  runeTypes?: RuneTypeInterface[];
+  handleRunesListUpdate?: (runes: RuneTypeInterface[]) => void;
 }
 
 export interface InputPropsInterface {

@@ -1,7 +1,8 @@
 import React from "react";
 import { useState } from "react";
-import { RuneTypeInterface } from "../../interfaces";
+import { RuneTypeInterface, RuneTypeListInterface } from "../../interfaces";
 import { RuneTypeListForm } from "../RuneTypeListForm/RuneTypeListForm";
+import { TotalRuneAmount } from "../TotalRuneAmount/TotalRuneAmount";
 
 const runeList: RuneTypeInterface[] = [
   {
@@ -164,10 +165,22 @@ const runeList: RuneTypeInterface[] = [
   }
 ];
 export const RuneCalculator = () => {
-  // const [runeTypes, setRuneTypes] = useState<RuneTypeInterface[]>([])
+  const [runesList, setRunesList] = useState<RuneTypeInterface[]>();
+
+  function handleRunesListUpdate(runes: RuneTypeInterface[]): void {
+    setRunesList(runes);
+  }
+
   return (
-    <div className="w-1/3 bg-gray-100">
-      <RuneTypeListForm runeTypes={runeList}></RuneTypeListForm>
+    <div
+      id="runeCalculator"
+      className=" w-1/3 relative p-10 rounded shadow-2xl border border-slate-100 "
+    >
+      <RuneTypeListForm
+        runeTypes={runeList}
+        handleRunesListUpdate={handleRunesListUpdate}
+      ></RuneTypeListForm>
+      <TotalRuneAmount runeTypes={runesList} />
     </div>
   );
 };

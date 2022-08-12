@@ -6,7 +6,7 @@ import { Header } from "./layout/Header/Header";
 import { Footer } from "./layout/Footer/Footer";
 function App() {
   return (
-    <div className="App p-5">
+    <div className="App p-5 h-full w-full">
       <Header />
       <RuneCalculator></RuneCalculator>
       <Footer />
